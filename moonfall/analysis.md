@@ -1,0 +1,18 @@
+# Findings
+- **likely domain** -> bluemoontuesday.com
+  - I set a filter for showing only DNS events
+  - I searched for "moon"
+- **infected Windows client's IP address** -> 10.1.17.215
+  - this is the ip address from which the bluemoontuesday.com was accessed
+  - this was visiblwe from the DNS event
+- **host name** -> DESKTOP-L8C5GSJ
+  - if filtered for the infected windows client's ip address and looked for some NBNS event
+  - the NetBIOS Name Service contained the host name
+- **MAC address** -> 00:d0:b7:26:4a:74
+  - the same NBNS querie contained the MAC address in the Ethernet II header
+- **C2** -> 5.252.153.241
+  - steps:
+    - show only external communication for the infected windws client's ip address
+    - look for http, udp and tcp queries
+  - findings:
+    - a lot of http GET queries for this ip address, at /1517096937
