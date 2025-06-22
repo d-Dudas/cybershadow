@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     }
 
     FileTypeReader fileTypeReader{};
-    if(auto error{fileTypeReader.readFileSigs(args.getFileTypeMapFile())})
+    if(auto error{fileTypeReader.readFileSigs(args.getFileTypeMapPath())})
     {
         std::cerr << "Error reading file type map: " << *error << std::endl;
         return 1;

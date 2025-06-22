@@ -16,6 +16,16 @@ bool isRegularFile(const std::string& path)
 }
 }
 
+/*
+ * Parses a directory and returns a list of file paths.
+ * 
+ * If the path is a regular file, it returns a vector containing that file's path.
+ * 
+ * If the path is a directory, it recursively lists all files within that directory.
+ * 
+ * If a depth is specified, it limits the recursion to that depth. Otherwise, it lists
+ * all files in the directory and its subdirectories.
+ */
 std::vector<std::string> parseDirectory(const std::string& path, std::optional<int> depth)
 {
     if(isRegularFile(path))

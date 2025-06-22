@@ -11,8 +11,9 @@ public:
     std::optional<std::string> parse(int argc, char* argv[]);
 
     std::string getInputPath() const;
-    std::string getFileTypeMapFile() const;
+    std::string getFileTypeMapPath() const;
     std::optional<int> getDepth() const;
+
 private:
     std::string inputPath;
     std::string fileTypeMapFile;

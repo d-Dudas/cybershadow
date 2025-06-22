@@ -1,5 +1,7 @@
 #include "Args.hpp"
 
+#include <stdexcept>
+
 namespace
 {
 bool isInputPathFlag(const std::string& arg)
@@ -20,6 +22,10 @@ bool isDepthFlag(const std::string& arg)
 
 namespace args
 {
+/*
+ * Parses command line arguments.
+ * Returns an error message if parsing fails, or std::nullopt if successful.
+ */
 std::optional<std::string> Args::parse(int argc, char* argv[])
 {
     for(int i = 1; i < argc; i++)
@@ -35,7 +41,15 @@ std::optional<std::string> Args::parse(int argc, char* argv[])
         }
         else if(isDepthFlag(arg) && i + 1 < argc)
         {
-            depth = std::stoi(argv[++i]);
+            try
+            {
+                depth = std::stoi(argv[++i]);
+            }
+            catch(...)
+            {
+                return "Invalid depth value. It should be an integer.";
+            }
+            
         }
     }
 
@@ -46,24 +60,39 @@ std::optional<std::string> Args::parse(int argc, char* argv[])
 
     if(fileTypeMapFile.empty())
     {
-        return "File type map file is required.";
+        return "File type map path is required.";
+    }
+
+    if(depth.has_value() && *depth < 0)
+    {
+        return "Depth cannot be negative.";
     }
 
     return std::nullopt;
 }
 
+/**
+ * Returns the input path.
+ */
 std::string Args::getInputPath() const
 {
     return inputPath;
 }
 
-std::string Args::getFileTypeMapFile() const
+/**
+ * Returns the file type map path.
+ */
+std::string Args::getFileTypeMapPath() const
 {
     return fileTypeMapFile;
 }
 
+/**
+ * Returns the depth value, if set.
+ * If not set, returns std::nullopt.
+ */
 std::optional<int> Args::getDepth() const
 {
     return depth;
 }
-}
+} // namespace args

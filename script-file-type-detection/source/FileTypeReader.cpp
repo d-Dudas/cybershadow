@@ -20,6 +20,10 @@ std::vector<std::uint8_t> parsehex(const std::string& hex)
 }
 } // namespace 
 
+/**
+ * Reads file signatures from a JSON file.
+ * Returns an error message if reading fails, or std::nullopt if successful.
+ */
 std::optional<std::string> FileTypeReader::readFileSigs(const std::string& fileTypeMapFile)
 {
     std::ifstream file(fileTypeMapFile);
@@ -53,6 +57,10 @@ std::optional<std::string> FileTypeReader::readFileSigs(const std::string& fileT
     return std::nullopt;
 }
 
+/**
+ * Returns the file type based on the file's header.
+ * If the file type is not recognized, returns "Unknown".
+ */
 std::string FileTypeReader::getFileType(const std::string& filename) const
 {
     std::ifstream
