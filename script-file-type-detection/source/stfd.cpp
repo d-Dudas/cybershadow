@@ -36,7 +36,8 @@ int main(int argc, char* argv[])
     }
 
 
-    auto files{parseDirectory(args.getInputPath(), args.getDepth())};    
+    auto files{parseDirectory(args.getInputPath(), args.getDepth())};
+    std::cout << "Found " << files.size() << " files to process.\n";
     for (const auto& inputPath : files)
     {
         try

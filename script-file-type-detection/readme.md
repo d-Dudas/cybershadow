@@ -25,7 +25,7 @@ Options:
 ## Example
 
 ```bash
-stfd.exe -s script-file-type-detection/resources/file_sigs.json -i chapter1 -d 3
+.\bin\stfd.exe -s .\script-file-type-detection\resources\file_sigs.json -i chapter1 -d 4
 ```
 
 ## Dependencies
@@ -35,3 +35,5 @@ stfd.exe -s script-file-type-detection/resources/file_sigs.json -i chapter1 -d 3
 ## Note
 
 - this program was developed on Windows and it was not tested on Linux
+
+## [Results](./results.md)
