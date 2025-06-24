@@ -1,0 +1,157 @@
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}
+
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+
+\begin{document}
+
+\title[Operation Cybershadow]{Operation Cybershadow}
+
+\author*{\fnm{David} \sur{Dudas}}\email{david.dudas03@e-uvt.ro}
+
+\affil{\orgdiv{Faculty of Mathematics and Computer Science},
+       \orgname{West University of Timisoara},
+       \orgaddress{\city{Timisoara},
+                   \country{Romania}}}
+
+\abstract{This paper present the operation CYBERSHADOW\@: A Digital Whodunit. This operation is about a digital forensics
+investigation triggered by an infiltration of the Ministry of Strategic Technologies. This paper presents four chapters
+that describe the investigation, the tools used, and the findings.}
+
+\keywords{Cybersecurity, Digital Forensics, Investigation, C++}
+
+\maketitle
+
+\section{Introduction}\label{introduction}
+
+\par This paper tends to present operation CYBERSHADOW\@: A Digital Whoduint that started at InterSec Division HQ.
+
+\par The Ministry of Strategic Technologies was inflitrated by an unknown actor and the only clues left are a
+compromised machine, garbled traffic logs, a suspicious USB image, and a stash of potentially synthetic media.
+
+\par In the following sections I will present how I approached the problem, what tools I used, and what I found.
+
+\subsection{Chapter 1: Shadows in the File System}\label{chapter1_introduction}
+
+\par The investigation begins with a laptop with a compressed archive on its drive. This archive contains a web of
+directories and files that may contain clues. The filenames and types are misleading, so we will need a script that can
+recursively scan a folder and identify the actual file types.
+
+\par The script should be designed for the Windows operating system and I will write it in C++.
+
+\par The script will offer a command line interface with the following options:
+
+\begin{itemize}
+    \item \texttt{-i} or \texttt{--input} followed by a path: Specify the input file path.
+    \item \texttt{-s} or \texttt{--sigs} followed by a path: Specify the file type map path.
+    \item \texttt{-d} or \texttt{--depth} followed by a number: Specify the search depth (when input path is a directory).
+    \item \texttt{-h} or \texttt{--help}: Display the help message.
+\end{itemize}
+
+\par We can use this script to scan the archive and identify the actual file types.
+
+\subsection{Chapter 2: Listening to Ghosts}
+
+\par A machine started acting strange after the user installed something searching for Google Authenticator.
+There are two separate LAN segments, each tainted by infection. We will analyze the traffic for each.
+
+\subsubsection{Operation MOONFALL\@: The False Authenticator}
+
+\par The infection took root after accessing a fake Google Authenticator page. In order to find out \textbf{infected Windows
+client's IP address, MAC address, host name} and also the \textbf{likely domain name used by the fake Authenticator site and
+the Command and Control (C2) server IP address}, we will analyze the traffic logs.
+
+\subsubsection{Operation GREENWIRE\@: The Domain Breach}
+
+\par There are some outbound connections to obscure hosts, odd DNS behavior, and encrypted chatter in a different AD
+environment. Seems to be a different malware strain, but it might be linked to the previous analysis.
+
+\par Here we are interested in finding out the \textbf{IP adddress and host name} of the infected Windows machine,
+the associated \textbf{user account names}, the responsible \textbf{malware family}, the \textbf{exact UTC timestamp}
+when the infection began, and the \textbf{domain name} used within this AD environment.
+
+\subsection{Chapter 3: Echoes from the Drive}
+
+\par An USB device is next clue. I wat profesionally wiped, but the imaging team was able to extract a complete forensic
+dump: IMAGE.ISO\@.
+
+\par We also know that there is a file inside the image that was encrypted using a 2-byte XOR cipher, the archives may
+be nested within the image, and one file is believed to be an image (BMP, PNG, or JPG), but it also be more than just
+pixels.
+
+\par I will try to \textbf{recover} all the extractable files from the ISO image, \textbf{classify} them by type with
+as much accuracy as possible, decrypt the encrypted file, and examine image files.
+
+\subsection{Chapter 4: Faces Behind the Curtain}
+
+\par There is also a folder that has surfaced during the investigation. It contains dozens of images and videos
+depicting high-ranking officials in scenarios that could ignite international crises. However, there is something
+suspicious about them.
+
+\par I will analyze the media files and will try to \textbf{determine which images and videos are authentic and which
+have been manipulated}.
+
+\section{Related Work}\label{relatedwork}
+
+What the heck am I supposed to write here?
+
+\section{Methodology}\label{methodology}
+
+\subsection{File Type Detection Script}\label{chapter1}
+
+\par In this section, I will present the C++ program used to detect the file types from the achive from chapter
+1[\ref{chapter1_introduction}].
+
+\par I will use the magic number of the file's headers to determine the file type. The magic number is a unique sequence
+of bytes at the beginning of a file that identifies its type. I will use Gary Kessler's magic number list\cite{filesigs}
+for this.
+
+\par The program reads the json file using the nlohmann::json library\cite{nlohmann_json} and populates a map where
+the magic number is the key and the file type details are the value. The program then recursively scans the input
+directory and reads the first eight bytes of each file. It checks if the magic number is present in the map and prints
+the file type details if it is found.
+
+\par The program won't work if the input path and the signatures path are not provided. The depth is optional \-- if not
+provided, the program will scan the entire directory tree.
+
+\subsection{Network Traffic Analysis}
+
+\subsubsection{The False Authenticator}
+
+\subsubsection{The Domanin Breach}
+
+\subsection{Digital Foresics \& Hidden Data Extraction}
+
+\subsection{Deepfake Detection}
+
+\section{Results}\label{results}
+
+\subsection{File Type Detection Script Results}\label{chapter1_results}
+
+\subsubsection{The False Authenticator Results}
+
+\subsubsection{The Domain Breach Results}
+
+\subsubsection{Digital Foresics \& Hidden Data Extraction Results}
+
+\subsubsection{Deepfake Detection Results}
+
+\section{Conclusion}\label{conclusion}
+
+\bibliographystyle{sn-mathphys}
+\bibliography{sn-bibliography}
+
+\end{document}
+
