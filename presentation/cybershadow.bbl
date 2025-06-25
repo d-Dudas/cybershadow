@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{2}
+\begin{thebibliography}{3}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -61,6 +61,19 @@ JSON for Modern C++.
 \url{https://github.com/nlohmann/json}
 (2025)
 \end{botherref}
+\endbibitem
+
+%%% 3
+\bibitem[\protect\citeauthoryear{Kuraku and Kalla}{2020}]{kuraku2020emotet}
+\begin{barticle}
+\bauthor{\bsnm{Kuraku}, \binits{S.}},
+\bauthor{\bsnm{Kalla}, \binits{D.}}:
+\batitle{Emotet malware—a banking credentials stealer}.
+\bjtitle{Iosr J. Comput. Eng}
+\bvolume{22},
+\bfpage{31}--\blpage{41}
+(\byear{2020})
+\end{barticle}
 \endbibitem
 
 \end{thebibliography}
